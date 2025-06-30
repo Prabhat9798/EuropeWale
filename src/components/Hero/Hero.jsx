@@ -1,9 +1,42 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import hero from '../../assets/Hero/heroimg.png';
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import PopupForm from './PopupForm';
+// Import the PopupForm component
 
 const Hero = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [formClosedTime, setFormClosedTime] = useState(null);
+
+  // Handle the "Book a Call" button click
+  const handleBookCallClick = () => {
+    setShowForm(true);
+    // Reset the timer when manually opened
+    setFormClosedTime(null);
+  };
+
+  // Handle form close
+  const handleCloseForm = () => {
+    setShowForm(false);
+    // Record when the form was closed
+    setFormClosedTime(Date.now());
+  };
+
+  // Show form again after 5 seconds if it was closed
+  useEffect(() => {
+    if (formClosedTime) {
+      const timer = setTimeout(() => {
+        setShowForm(true);
+        setFormClosedTime(null);
+      }, 9000); // 5 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [formClosedTime]);
+
+
   return (
     <section className='flex items-center justify-center  bg-gray-50 py-16 px-0 sm:px-6 lg:px-22 '>
       <div className='container flex flex-col lg:flex-row items-center justify-center   gap-12'>
@@ -89,6 +122,8 @@ const Hero = () => {
             transition={{ delay: 0.6, duration: 0.6 }}
           >
             <button
+                          onClick={handleBookCallClick}
+
               className='px-8 sm:px-14 py-3 font-medium text-white transition-all hover:opacity-90 w-full sm:w-auto'
               style={{
                 background: "linear-gradient(91.44deg, #FF9422 17.06%, #D63715 52.08%)",
@@ -136,6 +171,9 @@ const Hero = () => {
           />
         </motion.div>
       </div>
+      
+            <PopupForm isOpen={showForm} onClose={handleCloseForm} />
+
     </section>
   );
 };
