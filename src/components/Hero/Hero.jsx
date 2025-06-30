@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import hero from '../../assets/Hero/heroimg.png';
-import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PopupForm from './PopupForm';
 // Import the PopupForm component
@@ -142,9 +142,10 @@ const Hero = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
           >
             {[
-              { icon: <FaFacebookF className="text-lg" />, href: "/" },
-              { icon: <FaInstagram className="text-lg" />, href: "/" },
-              { icon: <FaTwitter className="text-lg" />, href: "/" }
+              { icon: <FaFacebookF className="text-lg" />,                href:"https://www.facebook.com/germanywale.official"
+ },
+              { icon: <FaInstagram className="text-lg" />, href: "https://www.instagram.com/germanywale_official/" },
+              { icon: <FaLinkedin className="text-lg" />, href: "https://www.linkedin.com/company/35885346/" }
             ].map((social, index) => (
               <a 
                 key={index}
