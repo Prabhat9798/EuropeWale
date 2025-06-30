@@ -31,7 +31,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='min-h-[85px] flex items-center justify-center w-full bg-white lg:px-22 sticky top-0 z-50'>
+            <nav className='min-h-[85px] flex items-center justify-center w-full bg-white lg:px-20 sticky top-0 z-50'>
                 <div className='container mx-auto px-6 sm:px-6 lg:px-8 py-2'>
                     {/* Main Navbar Content */}
                     <div className='flex items-center justify-between'>
