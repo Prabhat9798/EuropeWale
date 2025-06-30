@@ -10,15 +10,21 @@ import Footer from './components/Footer/Footer'
 const App = () => {
   return (<>
     <Navbar/>
-    <Hero/>
-    <WhyChooseUs/>
-    <ServicesSection/>
+    <div id="home">
+      <Hero/>
+    </div>
+    <div id="features">
+      <WhyChooseUs/>
+    </div>
+    <div id="services">
+      <ServicesSection/>
+    </div>
     <UniversitiesSection/>
-    <GoogleReviews/>
+    <div id="reviews">
+      <GoogleReviews/>
+    </div>
     <Footer/>
-    
-    </>
-  )
+  </>)
 }
 
 export default App

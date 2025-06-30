@@ -2,21 +2,32 @@ import React, { useState } from 'react';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [activeLink, setActiveLink] = useState(null);
     
     const Navlinks = [
-        { id: 1, links: "Home" },
-        { id: 2, links: "Features" },
-        { id: 3, links: "Services" },
-        { id: 4, links: "Reviews" }
+        { id: 1, links: "Home", targetId: "home" },
+        { id: 2, links: "Features", targetId: "features" },
+        { id: 3, links: "Services", targetId: "services" },
+        { id: 4, links: "Reviews", targetId: "reviews" }
     ];
 
+    const scrollToSection = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        setIsMenuOpen(false);
+    };
+
     return (
-        <nav className='min-h-[85px] flex items-center justify-center w-full bg-yellow lg:px-22 '>
+        <nav className='min-h-[85px] flex items-center justify-center w-full bg-white lg:px-22 sticky top-0 z-50'>
             <div className='container mx-auto px-12 sm:px-6 lg:px-8 py-2'>
                 {/* Main Navbar Content */}
                 <div className='flex items-center justify-between'>
                     {/* Logo Section */}
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center cursor-pointer" onClick={() => scrollToSection('home')}>
                         <img src='https://logos-download.com/wp-content/uploads/2021/07/Flag_of_Austria.png' alt="Logo" className='w-12 h-8 rounded' />
                         <p className='font-medium text-lg text-[#000000]'>EuropeWale</p>
                     </div>
@@ -25,19 +36,30 @@ const Navbar = () => {
                     <div className="hidden lg:flex items-center lg:justify-center gap-8">
                         <ul className='flex gap-6'>
                             {Navlinks.map((link) => (
-                                <li key={link.id} className='cursor-pointer font-medium hover:text-blue-600'>
+                                <li 
+                                    key={link.id} 
+                                    className={`cursor-pointer font-medium relative group ${activeLink === link.targetId ? 'text-blue-600' : 'text-black'}`}
+                                    onClick={() => {
+                                        scrollToSection(link.targetId);
+                                        setActiveLink(link.targetId);
+                                    }}
+                                    onMouseEnter={() => setActiveLink(link.targetId)}
+                                    onMouseLeave={() => setActiveLink(null)}
+                                >
                                     {link.links}
+                                    <span className={`absolute left-0 -bottom-1 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full ${activeLink === link.targetId ? 'w-full' : ''}`}></span>
                                 </li>
                             ))}
                         </ul>
-                      
                     </div>
                     <div className='hidden lg:flex items-center lg:justify-center gap-8'>
-                          <button className='px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors' 
-                           style={{
-                background: "linear-gradient(91.44deg, #FF9422 17.06%, #D63715 52.08%)",
-                borderRadius: "10px 0 10px 0",
-              }}>
+                        <button 
+                            className='px-6 py-2 text-white rounded-lg hover:opacity-90 transition-colors' 
+                            style={{
+                                background: "linear-gradient(91.44deg, #FF9422 17.06%, #D63715 52.08%)",
+                                borderRadius: "10px 0 10px 0",
+                            }}
+                        >
                             Call for Demo
                         </button>
                     </div>
@@ -60,14 +82,23 @@ const Navbar = () => {
                             {Navlinks.map((link) => (
                                 <li 
                                     key={link.id}
-                                    className='cursor-pointer font-medium hover:text-blue-600 p-2'
-                                    onClick={() => setIsMenuOpen(false)}
+                                    className={`cursor-pointer font-medium p-2 ${activeLink === link.targetId ? 'text-blue-600' : 'text-black'}`}
+                                    onClick={() => {
+                                        scrollToSection(link.targetId);
+                                        setActiveLink(link.targetId);
+                                    }}
                                 >
                                     {link.links}
                                 </li>
                             ))}
                         </ul>
-                        <button className='mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg w-full hover:bg-blue-600'>
+                        <button 
+                            className='mt-4 px-6 py-2 text-white rounded-lg w-full hover:opacity-90'
+                            style={{
+                                background: "linear-gradient(91.44deg, #FF9422 17.06%, #D63715 52.08%)",
+                                borderRadius: "10px 0 10px 0",
+                            }}
+                        >
                             Call for Demo
                         </button>
                     </div>
